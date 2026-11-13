@@ -36,7 +36,7 @@ public:
   int GetAPIVersionMajor() override { return 1; }
   int GetAPIVersionMinor() override { return 16; }
   int GetPlugInVersionMajor() override { return 1; }
-  int GetPlugInVersionMinor() override { return 1; }
+  int GetPlugInVersionMinor() override { return 1; }  // wie PKG_VERSION in Plugin.cmake
 
   wxBitmap* GetPlugInBitmap() override;
   wxString GetCommonName() override;

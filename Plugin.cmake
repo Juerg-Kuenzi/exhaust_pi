@@ -22,7 +22,7 @@ set(OCPN_RELEASE_REPO
 
 # -------  Plugin --------
 set(PKG_NAME exhaust_pi)
-set(PKG_VERSION 1.1.0)  # Major.Minor.Patch
+set(PKG_VERSION 1.1.1)  # Major.Minor.Patch
 set(PKG_PRERELEASE "")  # leer oder z. B. 'beta'
 
 set(DISPLAY_NAME ExhaustTemp)     # Dialoge, Paketnamen

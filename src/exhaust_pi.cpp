@@ -134,7 +134,12 @@ bool exhaust_pi::DeInit() {
   }
   if (m_window) {
     m_winPos = m_window->GetPosition();
-    m_window->Destroy();
+    // Sofort löschen, NICHT Destroy(): Destroy() verschiebt das Löschen von
+    // Fenstern auf später. OpenCPN entlädt die Plugin-DLL aber direkt nach
+    // DeInit() – das spätere Löschen würde dann Code aus der bereits
+    // entladenen DLL aufrufen und OpenCPN abstürzen lassen.
+    m_window->Hide();
+    delete m_window;
     m_window = nullptr;
   }
   SaveConfig();
