@@ -14,8 +14,9 @@ cmake-build-*/
 test_logic
 test_logic.exe
 
-# OpenCPN-Quellen für ocpn_plugin.h (lokal geklont)
-OpenCPN/
+# Von buildwin\win_deps.bat heruntergeladen
+cache/
+*.7z
 
 # Editor/IDE
 .vscode/

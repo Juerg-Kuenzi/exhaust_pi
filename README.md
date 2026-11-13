@@ -29,22 +29,57 @@ Optionen → Verbindungen → Verbindung hinzufügen:
 - Richtung: Empfangen
 - Keine Eingangsfilter, die XDR-Sätze blockieren
 
-## Bauen (Linux)
+## Fertiges Paket von GitHub (ohne eigene Installation)
 
-Benötigt: CMake, C++-Compiler, wxWidgets-Entwicklungspakete (dieselbe Version wie OpenCPN, meist 3.2) und `ocpn_plugin.h` aus den OpenCPN-Quellen.
+Bei jedem Push baut GitHub das Plugin automatisch für Windows (32 und 64 Bit):
 
-```bash
-git clone --depth 1 https://github.com/OpenCPN/OpenCPN.git
-mkdir build && cd build
-cmake .. -DOCPN_API_DIR=../OpenCPN/include
-make
-mkdir -p ~/.local/lib/opencpn
-cp libexhaust_pi.so ~/.local/lib/opencpn/
+1. Im Repository auf **Actions** klicken und den obersten grünen Lauf öffnen.
+2. Unten unter **Artifacts** `exhaust_pi-windows-Win32` oder `exhaust_pi-windows-x64` herunterladen und entpacken. Darin liegt eine `.tar.gz`-Datei.
+3. In OpenCPN: Optionen → Plugins → **Plugin importieren** → die `.tar.gz`-Datei wählen.
+4. „ExhaustTemp“ in der Liste aktivieren.
+
+Welche Variante passt, hängt von der OpenCPN-Installation ab (Hilfe → Info). Wird die falsche gewählt, lehnt OpenCPN den Import ab.
+
+## Selbst bauen unter Windows
+
+Der Build-Rahmen (CMake-Skripte, Windows-Skripte, Paketierung) stammt aus der Plugin-Vorlage [shipdriver_pi](https://github.com/Rasbats/shipdriver_pi) und ist fest in dieses Repository kopiert. Die OpenCPN-Schnittstelle kommt als Git-Submodul `opencpn-libs`.
+
+**Einmalig installieren** (PowerShell als Administrator):
+
+1. Chocolatey: Befehl von <https://chocolatey.org/install> ausführen.
+2. Compiler und Git:
+   ```
+   choco install -y git visualstudio2022buildtools visualstudio2022-workload-vctools
+   ```
+3. Repository holen (normale Eingabeaufforderung, `cmd`):
+   ```
+   git clone --recurse-submodules https://github.com/Juerg-Kuenzi/exhaust_pi.git
+   cd exhaust_pi
+   ```
+4. Restliche Werkzeuge (CMake, Python, gettext, 7-Zip, wxWidgets) – in einer **Eingabeaufforderung als Administrator** im Ordner `exhaust_pi`:
+   ```
+   buildwin\win_deps.bat
+   ```
+
+**Bauen** (normale Eingabeaufforderung im Ordner `exhaust_pi`):
+
+```
+ci\appveyor.bat
 ```
 
-Danach OpenCPN neu starten und unter Optionen → Plugins „ExhaustTemp“ aktivieren.
+Für 64 Bit vorher `set PLATFORM=x64` eingeben. Das fertige Paket liegt danach als `.tar.gz` im Ordner `build` und wird wie oben beschrieben importiert. Die Hinweise auf fehlende Cloudsmith- oder Git-Schlüssel am Ende sind normal: Sie betreffen nur das Hochladen in den offiziellen Plugin-Katalog.
 
-Für Windows, macOS oder ein Installationspaket für den Plugin-Katalog empfiehlt sich die offizielle Plugin-Vorlage **shipdriver_pi** (github.com/Rasbats/shipdriver_pi): einfach die Dateien aus `src/` übernehmen und die Klassennamen in der Vorlage anpassen. Die Vorlage kümmert sich um Linking gegen OpenCPN, Packaging und Signierung.
+Wurde das Repository ohne `--recurse-submodules` geklont, holt `git submodule update --init` das Submodul nach.
+
+## Bauen unter Linux
+
+```bash
+git clone --recurse-submodules https://github.com/Juerg-Kuenzi/exhaust_pi.git
+cd exhaust_pi && mkdir build && cd build
+cmake .. && make tarball
+```
+
+Benötigt CMake, einen C++-Compiler, gettext und die wxWidgets-Entwicklungspakete (Version 3.2).
 
 ## Überwachung
 
@@ -95,6 +130,8 @@ Nach Strg+C meldet das Plugin nach dem Timeout den Datenausfall.
 
 Copyright (C) 2026 Juerg Kuenzi
 
-Dieses Programm ist freie Software. Es darf unter den Bedingungen der GNU General Public License, Version 2 oder (nach Wahl) jeder späteren Version, weitergegeben und/oder verändert werden. Den vollständigen Lizenztext enthält die Datei [LICENSE](LICENSE).
+Dieses Programm ist freie Software. Die eigenen Quelltexte (`src/`, `tests/`, `tools/`) dürfen unter den Bedingungen der GNU General Public License, Version 2 oder (nach Wahl) jeder späteren Version, weitergegeben und/oder verändert werden ([LICENSE](LICENSE)).
+
+Der aus shipdriver_pi übernommene Build-Rahmen (`cmake/`, `ci/`, `buildwin/`, `CMakeLists.txt`) steht laut den Dateiköpfen unter der GPL Version 3 oder neuer. Das fertige Plugin-Paket wird deshalb als Ganzes unter der GPL Version 3 weitergegeben.
 
 Das Plugin ersetzt keine vom Motorhersteller vorgesehene Überwachung und keine regelmäßige Sichtkontrolle des Kühlwasseraustritts. Es wird ohne jede Gewährleistung bereitgestellt.

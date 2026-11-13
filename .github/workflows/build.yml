@@ -1,0 +1,57 @@
+---
+# Baut das Plugin bei jedem Push auf GitHub-Servern.
+# Die fertigen Pakete stehen danach unter "Actions" -> Lauf -> "Artifacts"
+# zum Herunterladen bereit und werden in OpenCPN über
+# "Plugin importieren" installiert.
+name: build
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test-logic:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Alarmlogik-Szenarien
+        run: |
+          g++ -std=c++14 -Wall -Wextra -Isrc tests/test_logic.cpp src/exhaust_logic.cpp -o test_logic
+          ./test_logic
+
+  msvc:
+    runs-on: windows-2022
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: Win32
+            arch: x86
+          - platform: x64
+            arch: x64
+    env:
+      PLATFORM: ${{ matrix.platform }}
+      CONFIGURATION: RelWithDebInfo
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 10
+
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: ${{ matrix.arch }}
+
+      - name: Build
+        shell: cmd
+        run: call ci\appveyor.bat
+
+      - name: Paket bereitstellen
+        uses: actions/upload-artifact@v4
+        with:
+          name: exhaust_pi-windows-${{ matrix.platform }}
+          path: |
+            build/*.tar.gz
+            build/*.xml
+          if-no-files-found: error
