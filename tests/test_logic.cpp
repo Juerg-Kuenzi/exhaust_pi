@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright (C) 2026 Juerg Kuenzi
+
 // Simuliert Motorläufe und prüft die Alarmlogik.
 // Bauen und ausführen:
 //   g++ -std=c++14 -I../src test_logic.cpp ../src/exhaust_logic.cpp -o test_logic && ./test_logic

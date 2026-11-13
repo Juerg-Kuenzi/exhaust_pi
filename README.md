@@ -90,3 +90,11 @@ python3 tools/test_sender.py --scenario sinus --min 30 --max 70     # alles durc
 ```
 
 Nach Strg+C meldet das Plugin nach dem Timeout den Datenausfall.
+
+## Lizenz
+
+Copyright (C) 2026 Juerg Kuenzi
+
+Dieses Programm ist freie Software. Es darf unter den Bedingungen der GNU General Public License, Version 2 oder (nach Wahl) jeder späteren Version, weitergegeben und/oder verändert werden. Den vollständigen Lizenztext enthält die Datei [LICENSE](LICENSE).
+
+Das Plugin ersetzt keine vom Motorhersteller vorgesehene Überwachung und keine regelmäßige Sichtkontrolle des Kühlwasseraustritts. Es wird ohne jede Gewährleistung bereitgestellt.

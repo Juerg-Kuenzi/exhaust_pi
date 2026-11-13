@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright (C) 2026 Juerg Kuenzi
+
 // OpenCPN-Plugin: Abgastemperatur anzeigen und überwachen
 //
 // Erwartet NMEA-0183-XDR-Sätze, z. B.

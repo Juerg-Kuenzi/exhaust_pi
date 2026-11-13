@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright (C) 2026 Juerg Kuenzi
+
 #pragma once
 // Schwebendes Fenster mit großer Temperaturanzeige und Quittier-Taste
 

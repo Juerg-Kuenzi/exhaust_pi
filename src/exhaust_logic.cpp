@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright (C) 2026 Juerg Kuenzi
+
 #include "exhaust_logic.h"
 
 // Steigung per linearer Regression über das Zeitfenster.
