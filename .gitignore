@@ -1,0 +1,25 @@
+# Build-Verzeichnisse
+build/
+build-*/
+cmake-build-*/
+
+# Kompilate
+*.o
+*.obj
+*.so
+*.dll
+*.dylib
+*.lib
+*.exp
+test_logic
+test_logic.exe
+
+# OpenCPN-Quellen für ocpn_plugin.h (lokal geklont)
+OpenCPN/
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+__pycache__/
