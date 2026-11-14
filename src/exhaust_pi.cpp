@@ -263,9 +263,27 @@ DisplayState exhaust_pi::MakeDisplayState() const {
 
 // --- Fenster ----------------------------------------------------------------
 
+// Schrift der Messwerte im Dashboard: dort eingestellte Schrift, sonst deren
+// Standard (14 pt, serifenlos, normal). So sieht die Anzeige gleich aus.
+wxFont exhaust_pi::DashboardDataFont() const {
+  wxFont font(14, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+  wxFileConfig* c = GetOCPNConfigObject();
+  if (c) {
+    wxString old = c->GetPath();
+    wxString desc;
+    c->SetPath("/PlugIns/Dashboard");
+    if (c->Read("FontData", &desc) && !desc.IsEmpty()) {
+      wxFont f;
+      if (f.SetNativeFontInfo(desc) && f.IsOk()) font = f;
+    }
+    c->SetPath(old);
+  }
+  return font;
+}
+
 void exhaust_pi::ShowWindow(bool show) {
   if (show && !m_window) {
-    m_window = new ExhaustWindow(m_parent, this);
+    m_window = new ExhaustWindow(m_parent, this, DashboardDataFont());
     if (m_winPos != wxDefaultPosition && wxDisplay::GetFromPoint(m_winPos) != wxNOT_FOUND)
       m_window->Move(m_winPos);
     else

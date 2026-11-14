@@ -2,7 +2,7 @@
 // Copyright (C) 2026 Juerg Kuenzi
 
 #pragma once
-// Schwebendes Fenster mit großer Temperaturanzeige und Quittier-Taste
+// Schwebendes Fenster: nur die Temperatur und die Quittier-Taste
 
 #include <wx/wx.h>
 
@@ -12,7 +12,8 @@ class exhaust_pi;
 
 class ExhaustWindow : public wxDialog {
 public:
-  ExhaustWindow(wxWindow* parent, exhaust_pi* pi);
+  // valueFont: Schrift für die Temperatur (wie die Werte im Dashboard)
+  ExhaustWindow(wxWindow* parent, exhaust_pi* pi, const wxFont& valueFont);
   void UpdateDisplay(const DisplayState& st);
 
 private:
@@ -22,8 +23,5 @@ private:
   exhaust_pi* m_pi;
   wxPanel* m_panel;
   wxStaticText* m_value;
-  wxStaticText* m_rate;
-  wxStaticText* m_info;
-  wxStaticText* m_status;
   wxButton* m_ack;
 };

@@ -100,11 +100,11 @@ Ein schneller Anstieg unterhalb der Betriebstemperatur (z. B. Impeller schon bei
 ## Bedienung
 
 - Toolbar-Symbol (Thermometer) blendet das Fenster ein und aus. Bei Vorwarnung oder Alarm wird es automatisch eingeblendet.
-- Unter der Temperatur steht die aktuelle Anstiegsrate in °C/min, bzw. der Hinweis, dass die Temperatur noch unter der Betriebstemperatur liegt.
-- **Normal:** Standardfarben, Status „OK“.
+- Das Fenster zeigt nur die Temperatur und die Taste „Quittieren“. Die Schrift entspricht den Messwerten im Dashboard (dort geänderte Schrift wird übernommen). Zustand, Anstiegsrate und Schwellen erscheinen als Tooltip, wenn die Maus über der Anzeige steht.
+- **Normal:** Standardfarben.
 - **Vorwarnung:** gelb, einmaliger Ton.
-- **Alarm:** rot, Ton alle 3 Sekunden, mit Angabe der Ursache (Alarmwert oder schneller Anstieg). „Alarm quittieren“ stoppt den Ton, die Anzeige bleibt orange, bis der Alarm beendet ist. Wird ein quittierter Anstiegsalarm danach vom Alarmwert überholt, ertönt der Alarm erneut.
-- **Datenausfall:** kommen länger als der eingestellte Timeout keine Werte, wird die Anzeige grau, auf Wunsch mit Ton alle 10 Sekunden.
+- **Alarm:** rot, Ton alle 3 Sekunden; die Ursache (Alarmwert oder schneller Anstieg) steht im Tooltip. „Quittieren“ stoppt den Ton, die Anzeige bleibt orange, bis der Alarm beendet ist. Wird ein quittierter Anstiegsalarm danach vom Alarmwert überholt, ertönt der Alarm erneut.
+- **Datenausfall:** kommen länger als der eingestellte Timeout keine Werte, wird die Anzeige grau und zeigt „---“, auf Wunsch mit Ton alle 10 Sekunden.
 
 Einstellungen: Optionen → Plugins → ExhaustTemp → Einstellungen. Gespeichert wird in der OpenCPN-Konfiguration unter `[PlugIns/ExhaustTemp]`. Alarmereignisse erscheinen zusätzlich im OpenCPN-Log.
 
